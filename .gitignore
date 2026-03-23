@@ -26,6 +26,7 @@ ENV/
 # -------------------------
 # 📁 Data files
 # -------------------------
+data/cifar-10-batches-py
 data/MNIST
 data/raw/
 data/processed/

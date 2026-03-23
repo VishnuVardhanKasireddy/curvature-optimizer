@@ -10,7 +10,7 @@ training:
   device: "cpu"
 
 optimizer:
-  name: "adam"
+  name: "rmsprop"
   lr: 0.01
   alpha: 1.0
   delta: 1e-6

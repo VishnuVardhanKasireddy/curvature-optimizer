@@ -1,16 +1,16 @@
 data:
-  dataset: "CIFAR10"
+  dataset: "MNIST"
   batch_size: 64
 
 model:
-  type: "cnn"
+  type: "mlp"
 
 training:
   epochs: 10
   device: "cpu"
 
 optimizer:
-  name: "calr"
+  name: "adam"
   lr: 0.01
   alpha: 1.0
   delta: 1e-6

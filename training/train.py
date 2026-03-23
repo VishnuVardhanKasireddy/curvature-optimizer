@@ -120,8 +120,10 @@ def train():
         "accuracy":acc_list
     })
     opt_name=config["optimizer"]["name"]
-    df.to_csv(f"results/{opt_name}_metrics.csv",index=False)
-    print(f"Metrics saved to results/{opt_name}_metrics.csv")
+    df.to_csv(f"results/{opt_name}_mnist_metrics.csv",index=False)
+    print(f"Metrics saved to results/{opt_name}_mnist_metrics.csv")
+    # df.to_csv(f"results/{opt_name}_cifar_metrics.csv",index=False)
+    # print(f"Metrics saved to results/{opt_name}_cifar_metrics.csv")
 
 
 if __name__ == "__main__":

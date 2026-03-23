@@ -1,0 +1,65 @@
+# -------------------------
+# 🧠 Python general
+# -------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.egg
+build/
+dist/
+
+# -------------------------
+# 📦 Virtual Environment
+# -------------------------
+venv/
+env/
+ENV/
+
+# -------------------------
+# 📊 Jupyter Notebook
+# -------------------------
+.ipynb_checkpoints/
+
+# -------------------------
+# 📁 Data files
+# -------------------------
+data/MNIST
+data/raw/
+data/processed/
+
+# (optional: keep sample data)
+# !data/raw/sample.csv
+
+# -------------------------
+# 📈 Results / Outputs
+# -------------------------
+results/
+*.csv
+*.log
+*.png
+*.jpg
+*.jpeg
+
+# -------------------------
+# 🧪 Experiment artifacts
+# -------------------------
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+
+# -------------------------
+# ⚙️ IDE / OS files
+# -------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# -------------------------
+# 🔐 Secrets / configs
+# -------------------------
+.env

@@ -1,0 +1,12 @@
+data:
+  batch_size: 64
+
+training:
+  epochs: 5   # keep small for testing
+  device: "cpu"
+
+optimizer:
+  name: "adam"
+  lr: 0.01
+  alpha: 0.1
+  delta: 1e-6

@@ -1,12 +1,16 @@
 data:
+  dataset: "CIFAR10"
   batch_size: 64
 
+model:
+  type: "cnn"
+
 training:
-  epochs: 5   # keep small for testing
+  epochs: 10
   device: "cpu"
 
 optimizer:
-  name: "adam"
+  name: "calr"
   lr: 0.01
-  alpha: 0.1
+  alpha: 1.0
   delta: 1e-6

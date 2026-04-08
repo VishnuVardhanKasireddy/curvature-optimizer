@@ -8,9 +8,11 @@ import os
 from models.mlp import MLP
 from models.cnn import CNN
 from optimizers.calr import CALR
+from optimizers.cnag import CALR_NAG
 from utils.metrics import calculate_accuracy
 from utils.seed import set_seed
 from utils.logger import log_epoch
+from utils.closure import make_closure
 
 
 
@@ -56,10 +58,17 @@ def get_optimizer(model,config):
             alpha=config["optimizer"]["alpha"],
             delta = float(config["optimizer"]["delta"])
         )
+    elif opt_name == "cnag":
+        return CALR_NAG(
+            model.parameters(),
+            lr=lr,
+            alpha=config["optimizer"]["alpha"],
+            delta = float(config["optimizer"]["delta"])
+        )
     elif opt_name == "adam":
         return torch.optim.Adam(model.parameters(),lr=lr)
     elif opt_name == "sgd":
-        return torch.optim.SGD(model.parameters(),lr=lr,momentum=0.9)
+        return torch.optim.SGD(model.parameters(),lr=lr,momentum=0.7)
     elif opt_name == "rmsprop":
         return torch.optim.RMSprop(
             model.parameters(),
@@ -103,19 +112,35 @@ def train():
         for batch_idx,(data,target) in enumerate(train_loader):
             data,target=data.to(device),target.to(device)
 
-            optimizer.zero_grad()
+            opt_name = config["optimizer"]["name"]
 
-            output=model(data)
-            loss=criterion(output,target)
+            if opt_name == "cnag":
+                closure=make_closure(model, optimizer, criterion, data, target)
+                loss = optimizer.step(closure)
+
+                # Recompute output for accuracy 
+                model.eval()
+                with torch.no_grad():
+                    output = model(data)
+                model.train()
+
+            else:
+                optimizer.zero_grad()
+                output = model(data)
+                loss = criterion(output, target)
+                loss.backward()
+                optimizer.step()
+
+            # Accuracy (common for both cases)
             c, t = calculate_accuracy(output, target)
             correct += c
             total += t
 
-            loss.backward()
-            optimizer.step()
+            # Loss tracking
+            total_loss += loss.item()
 
         accuracy=100*correct/total
-        total_loss+=loss.item()
+        # total_loss+=loss.item()
         avg_loss=total_loss/len(train_loader)
         loss_list.append(avg_loss)
         acc_list.append(accuracy)

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Graphs from "C:/Dev/Projects/curvature-optimizer/optimizer-ui/src/components/Graph.js";
-import OptimizerSelector from "C:/Dev/Projects/curvature-optimizer/optimizer-ui/src/components/OptimizerSelector.js";
-import KPISection from "C:/Dev/Projects/curvature-optimizer/optimizer-ui/src/components/KPISection";
-import OptimizerToggle from "C:/Dev/Projects/curvature-optimizer/optimizer-ui/src/components/OptimizerToggle";
-import Leaderboard from "C:/Dev/Projects/curvature-optimizer/optimizer-ui/src/components/Leaderboard";
-import Conclusion from "C:/Dev/Projects/curvature-optimizer/optimizer-ui/src/components/Conclusion";
+import Graphs from "./components/Graph";
+import OptimizerSelector from "./components/OptimizerSelector";
+import KPISection from "./components/KPISection";
+import OptimizerToggle from "./components/OptimizerToggle";
+import Leaderboard from "./components/Leaderboard";
+import Conclusion from "./components/Conclusion";
 import { motion } from "framer-motion";
 function App() {
   const [dark, setDark] = useState(false);

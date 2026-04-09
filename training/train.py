@@ -13,7 +13,7 @@ from utils.metrics import calculate_accuracy
 from utils.seed import set_seed
 from utils.logger import log_epoch
 from utils.closure import make_closure
-
+from utils.grad import compute_grad_norm
 
 
 set_seed(42)
@@ -104,11 +104,13 @@ def train():
     epochs=config["training"]["epochs"]
     loss_list=[]
     acc_list=[]
-
+    epoch_grad_norms=[]
+    
     for epoch in range(epochs):
         total_loss=0
         correct=0
         total=0
+        grad_norm_list = []
         for batch_idx,(data,target) in enumerate(train_loader):
             data,target=data.to(device),target.to(device)
 
@@ -117,7 +119,8 @@ def train():
             if opt_name == "cnag":
                 closure=make_closure(model, optimizer, criterion, data, target)
                 loss = optimizer.step(closure)
-
+                grad_norm = compute_grad_norm(model)
+                grad_norm_list.append(grad_norm)
                 # Recompute output for accuracy 
                 model.eval()
                 with torch.no_grad():
@@ -129,6 +132,8 @@ def train():
                 output = model(data)
                 loss = criterion(output, target)
                 loss.backward()
+                grad_norm = compute_grad_norm(model)
+                grad_norm_list.append(grad_norm)
                 optimizer.step()
 
             # Accuracy (common for both cases)
@@ -138,25 +143,28 @@ def train():
 
             # Loss tracking
             total_loss += loss.item()
-
+        avg_grad_norm = sum(grad_norm_list[-len(train_loader):]) / len(train_loader)
+        epoch_grad_norms.append(avg_grad_norm)
         accuracy=100*correct/total
-        # total_loss+=loss.item()
         avg_loss=total_loss/len(train_loader)
         loss_list.append(avg_loss)
         acc_list.append(accuracy)
         log_epoch(epoch+1, epochs, avg_loss, accuracy)
     
     os.makedirs("results",exist_ok=True)
-    df=pd.DataFrame({
-        "epoch":list(range(1,len(loss_list) + 1)),
-        "loss":loss_list,
-        "accuracy":acc_list
+    df = pd.DataFrame({
+        "epoch": list(range(1, len(loss_list)+1)),
+        "loss": loss_list,
+        "accuracy": acc_list,
+        "grad_norm": epoch_grad_norms
     })
     opt_name=config["optimizer"]["name"]
-    df.to_csv(f"results/{opt_name}_mnist_metrics.csv",index=False)
-    print(f"Metrics saved to results/{opt_name}_mnist_metrics.csv")
-    # df.to_csv(f"results/{opt_name}_cifar_metrics.csv",index=False)
-    # print(f"Metrics saved to results/{opt_name}_cifar_metrics.csv")
+    if(config["data"]["dataset"]=="MNIST"):
+        df.to_csv(f"results/{opt_name}_mnist_metrics.csv",index=False)
+        print(f"Metrics saved to results/{opt_name}_mnist_metrics.csv")
+    else:
+        df.to_csv(f"results/{opt_name}_cifar_metrics.csv",index=False)
+        print(f"Metrics saved to results/{opt_name}_cifar_metrics.csv")
 
 
 if __name__ == "__main__":

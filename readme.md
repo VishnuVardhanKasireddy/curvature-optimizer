@@ -218,7 +218,7 @@ These results validate the theoretical advantages of curvature-aware optimizatio
 ## 🖥️ Dashboard UI
 
 ![Dashboard](./assets/dashboard.png)
-
+![Performace Comparision](./assets/dashboard_graphs.png)
 ---
 
 ## ⚙️ Tech Stack

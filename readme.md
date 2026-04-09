@@ -1,74 +1,178 @@
 # 🚀 Curvature-Aware Nesterov Adaptive Optimizer (CALR-NAG)
 
-> A novel curvature-aware optimization algorithm that integrates **adaptive moments, curvature scaling, and Nesterov acceleration** to achieve faster convergence, improved stability, and superior generalization in deep learning.
+> A curvature-aware optimization framework that integrates **adaptive moment estimation, curvature scaling, and Nesterov acceleration** to enable efficient training of deep neural networks in complex non-convex loss landscapes.
 
 ---
 
 ## 📌 Abstract
 
-Training deep neural networks is challenging due to **non-convex loss landscapes** with saddle points, flat regions, and sharp curvature.
+Optimization lies at the core of deep learning, directly influencing convergence speed, stability, and generalization. However, modern neural networks exhibit highly **non-convex loss landscapes** characterized by saddle points, flat plateaus, and anisotropic curvature.
 
-Traditional optimizers like **SGD, Adam, and RMSProp** rely only on gradient information and often fail to adapt effectively.
+Traditional optimizers such as **Stochastic Gradient Descent (SGD)**, **Adam**, and **RMSProp** rely primarily on first-order gradient information. While effective in many scenarios, these methods lack explicit awareness of curvature, leading to:
 
-This project introduces **CALR-NAG**, which combines:
-- Curvature-Adaptive Learning Rate (CALR)
-- Nesterov Accelerated Gradient (NAG)
-- Adaptive Moment Estimation (Adam-like)
+- Slow convergence in flat regions  
+- Oscillations in sharp curvature zones  
+- Suboptimal generalization  
 
-✅ Faster convergence  
-✅ Lower loss  
-✅ Better generalization  
-✅ Improved stability  
+To address these limitations, this project proposes **CALR-NAG (Curvature-Aware Nesterov Adaptive Optimizer)**, a novel optimization strategy that:
+
+- Incorporates **curvature-aware learning rate scaling**  
+- Utilizes **Nesterov look-ahead gradient estimation**  
+- Maintains **adaptive moment estimates** for stability  
+
+By approximating curvature using gradient magnitude, CALR-NAG achieves **second-order-like behavior without explicit Hessian computation**, ensuring both efficiency and scalability.
+
+Extensive experiments on **MNIST (MLP)** and **CIFAR-10 (CNN)** demonstrate:
+
+- ⚡ Faster convergence  
+- 📉 Lower final loss  
+- 📈 Higher accuracy  
+- 🔒 Improved stability  
 
 ---
 
-## 🧠 Mathematical Formulation
+## 🧠 Core Idea
 
-### 🔹 First & Second Moment Estimates
-\[
+The key intuition behind CALR-NAG is:
+
+> *"Use gradient statistics to estimate curvature and adapt learning rates dynamically, while predicting future gradients using Nesterov acceleration."*
+
+This enables:
+- Efficient navigation through **saddle points**
+- Reduced oscillations in **high-curvature regions**
+- Faster movement across **flat plateaus**
+
+---
+
+## 🧮 Mathematical Formulation
+
+### 🔹 Problem Definition
+
+We aim to minimize a loss function:
+
+$$
+\min_{\theta} \; L(\theta)
+$$
+
+where:
+- $\theta$ → model parameters  
+- $L(\theta)$ → loss function  
+
+---
+
+### 🔹 Gradient
+
+$$
+g_t = \nabla L(\theta_t)
+$$
+
+---
+
+### 🔹 First Moment (Momentum)
+
+$$
 m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t
-\]
-\[
+$$
+
+---
+
+### 🔹 Second Moment (Variance)
+
+$$
 v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
-\]
+$$
+
+---
 
 ### 🔹 Bias Correction
-\[
-\hat{m}_t = \frac{m_t}{1 - \beta_1^t}, \quad 
-\hat{v}_t = \frac{v_t}{1 - \beta_2^t}
-\]
 
-### 🔹 Curvature Estimation
-\[
+$$
+\hat{m}_t = \frac{m_t}{1 - \beta_1^t}
+$$
+
+$$
+\hat{v}_t = \frac{v_t}{1 - \beta_2^t}
+$$
+
+---
+
+### 🔹 Curvature Approximation
+
+Instead of computing the Hessian $H$, we approximate curvature using gradient magnitude:
+
+$$
 H_t = |\nabla L(\theta_t)| + \delta
-\]
+$$
+
+where:
+- $\delta$ → small constant for numerical stability  
+
+---
 
 ### 🔹 Curvature-Aware Learning Rate
-\[
-\eta_t = \frac{\eta}{\sqrt{\hat{v}_t + \alpha H_t + \epsilon}}
-\]
 
-### 🔹 Nesterov Look-Ahead
-\[
+$$
+\eta_t = \frac{\eta}{\sqrt{\hat{v}_t + \alpha H_t + \epsilon}}
+$$
+
+where:
+- $\alpha$ → curvature scaling factor  
+- $\epsilon$ → stability constant  
+
+---
+
+### 🔹 Nesterov Look-Ahead Gradient
+
+Instead of computing gradient at $\theta_t$, we compute at:
+
+$$
 \tilde{\theta}_t = \theta_t - \beta_1 m_{t-1}
-\]
-\[
+$$
+
+$$
 g_t = \nabla L(\tilde{\theta}_t)
-\]
+$$
+
+---
 
 ### 🔹 Final Update Rule
-\[
+
+$$
 \theta_{t+1} = \theta_t - \eta_t \cdot \hat{m}_t
-\]
+$$
 
 ---
 
 ## 🔬 Novel Contributions
 
-- ✅ Curvature-aware learning rate without Hessian computation  
-- ✅ Integration of Nesterov look-ahead gradient  
-- ✅ Hybrid optimizer combining Adam + NAG + curvature scaling  
-- ✅ Improved convergence in non-convex landscapes  
+### ✅ 1. Curvature-Aware Learning Rate
+- Dynamically adjusts step size using gradient-based curvature approximation  
+- Avoids expensive second-order computations  
+
+---
+
+### ✅ 2. Nesterov Acceleration Integration
+- Computes gradients at a **look-ahead position**  
+- Improves convergence direction and reduces overshooting  
+
+---
+
+### ✅ 3. Hybrid Optimization Framework
+
+CALR-NAG unifies:
+- SGD → stability  
+- Adam → adaptive scaling  
+- NAG → acceleration  
+- Curvature methods → geometry awareness  
+
+---
+
+### ✅ 4. Efficient Second-Order Approximation
+
+Achieves curvature-aware optimization with:
+- **O(n)** complexity  
+- No Hessian computation  
+- Scalable to deep networks  
 
 ---
 
@@ -88,17 +192,7 @@ g_t = \nabla L(\tilde{\theta}_t)
 
 ---
 
-## 🏆 Final Performance Comparison
-
-### 📉 Final Loss
-![Final Loss](./assets/final_loss.png)
-
-### 📈 Final Accuracy
-![Final Accuracy](./assets/final_accuracy.png)
-
----
-
-## 📊 Performance Table
+## 🏆 Performance Comparison
 
 | Optimizer | Final Loss ↓ | Accuracy (%) ↑ | Convergence Epoch ↓ |
 |----------|-------------|---------------|---------------------|
@@ -110,58 +204,33 @@ g_t = \nabla L(\tilde{\theta}_t)
 
 ---
 
-## 📈 Key Observations
+## 📈 Key Insights
 
-- 🚀 Fastest convergence (reaches optimal region early)
-- 📉 Lowest loss across all optimizers
-- 📈 Highest accuracy and generalization
-- 🔒 Stable training (minimal oscillations)
+- 🚀 Fastest convergence across all optimizers  
+- 📉 Lowest final loss  
+- 📈 Highest accuracy  
+- 🔒 Stable gradient behavior  
+
+These results validate the theoretical advantages of curvature-aware optimization :contentReference[oaicite:0]{index=0}.
 
 ---
 
 ## 🖥️ Dashboard UI
 
-### 📊 Optimizer Comparison Dashboard
 ![Dashboard](./assets/dashboard.png)
-
-### 📈 Interactive Graphs
-![Graphs](./assets/dashboard_graphs.png)
-
----
-
-## 🏗️ Project Structure
-```
-curvature-optimizer/
-│
-├── optimizer-ui/ # React Dashboard
-│ ├── public/data/
-│ └── src/components/
-│
-├── training/ # Training scripts
-├── optimizer/ # CALR-NAG implementation
-├── assets/ # Images for README
-└── README.md
-```
 
 ---
 
 ## ⚙️ Tech Stack
 
-### 🔹 Machine Learning
-- PyTorch
-- NumPy
-
-### 🔹 Frontend
-- React.js
-- Recharts
-
-### 🔹 Visualization
-- Matplotlib
-
-### 🔹 Deployment
-- Vercel
+- PyTorch  
+- NumPy  
+- React.js  
+- Recharts  
+- Vercel  
 
 ---
+
 
 ## 🚀 Getting Started
 
@@ -169,7 +238,7 @@ curvature-optimizer/
 ```bash
 git clone https://github.com/VishnuVardhanKasireddy/curvature-optimizer.git
 cd curvature-optimizer
-
+```
 ---
 
 Run Training

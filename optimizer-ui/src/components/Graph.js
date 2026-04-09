@@ -90,7 +90,7 @@ return (
     <Card title=" Loss vs Epoch">
       <div style={{ width: "100%", height: 420 }}>
         <ResponsiveContainer width="100%" height={400}>
-        <LineChart >
+        <LineChart data={groupedData[selected[0]]}>
           <CartesianGrid strokeDasharray="3 3" stroke="#94a3b8" />
 
           <XAxis
@@ -134,7 +134,7 @@ return (
     <Card title=" Accuracy vs Epoch">
       <div style={{ width: "100%", height: 420 }}>
         <ResponsiveContainer width="100%" height={400}>
-        <LineChart>
+        <LineChart data={groupedData[selected[0]]}>
           <CartesianGrid strokeDasharray="3 3" stroke="#94a3b8" />
 
           <XAxis
@@ -179,7 +179,7 @@ return (
     <Card title=" Gradient Norm Stability">
       <div style={{ width: "100%", height: 420 }}>
         <ResponsiveContainer width="100%" height={400}>
-        <LineChart>
+        <LineChart data={groupedData[selected[0]]}>
           <CartesianGrid strokeDasharray="3 3" stroke="#94a3b8" />
 
           <XAxis

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Graphs from "./components/Graph";
-import OptimizerSelector from "./components/OptimizerSelector";
 import KPISection from "./components/KPISection";
 import OptimizerToggle from "./components/OptimizerToggle";
 import Leaderboard from "./components/Leaderboard";

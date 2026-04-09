@@ -241,30 +241,30 @@ cd curvature-optimizer
 ```
 ---
 
-Run Training
+### Run Training
 python train.py
 
 ---
-Run Dashboard
+### Run Dashboard
 cd optimizer-ui
 npm install
 npm start
 
 ---
 
-🌐 Live Demo
+ ### 🌐 Live Demo
 
 👉 https://curvature-optimizer.vercel.app/
 
-📚 References
+ ### 📚 References
 Curvature-Adaptive Learning Rate Optimizer
 CALR-NAG Project Documentation
 
 ---
-👨‍💻 Authors
+### 👨‍💻 Authors
 Vishnu Vardhan Reddy
 
-⭐ Support
+### ⭐ Support
 
 If you like this project, give it a star ⭐
 

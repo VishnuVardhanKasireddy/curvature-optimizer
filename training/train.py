@@ -68,14 +68,14 @@ def get_optimizer(model,config):
     elif opt_name == "adam":
         return torch.optim.Adam(model.parameters(),lr=lr)
     elif opt_name == "sgd":
-        return torch.optim.SGD(model.parameters(),lr=lr,momentum=0.7)
+        return torch.optim.SGD(model.parameters(),lr=lr,momentum=0.0)
     elif opt_name == "rmsprop":
         return torch.optim.RMSprop(
             model.parameters(),
             lr=lr,
             alpha=0.99,
             eps=1e-8,
-            momentum=0.0
+            momentum=0.0    
         )
     else:
         raise ValueError("Unknown Optimizer")

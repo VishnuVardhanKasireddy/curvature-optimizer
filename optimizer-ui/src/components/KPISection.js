@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 function KPISection({ dark }) {
   const cards = [
-    { title: "Best Accuracy", value: "97.82%", color: "#22c55e" },
-    { title: "Lowest Loss", value: "0.0783", color: "#ef4444" },
+    { title: "Best Accuracy", value: "99.32%", color: "#22c55e" },
+    { title: "Lowest Loss", value: "0.0439", color: "#ef4444" },
     { title: "Fastest Convergence", value: "Epoch 2", color: "#3b82f6" },
     { title: "Most Stable", value: "CNAG", color: "#f97316" }
   ];

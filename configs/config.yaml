@@ -6,11 +6,11 @@ model:
   type: "mlp"
 
 training:
-  epochs: 5
+  epochs: 50
   device: "cpu"
 
 optimizer:
-  name: "cnag"
+  name: "sgd"
   lr: 0.01
   alpha: 0.3
   delta: 1e-6

@@ -94,15 +94,17 @@ return (
           <CartesianGrid strokeDasharray="3 3" stroke="#94a3b8" />
 
           <XAxis
-            dataKey="epoch"
-            type="number"
-            domain={[1, 5]}
-            ticks={[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]}
-            tickFormatter={(tick) => tick.toFixed(1)}
-            label={{ value: "Epoch", position: "insideBottom", offset: -5 }}
-          />
+  dataKey="epoch"
+  type="number"
+  domain={[1, 5]}
+  // Generates an array from 1 to 50
+  ticks={Array.from({ length: 50 }, (_, i) => i + 1)} 
+  tickFormatter={(tick) => tick.toFixed(0)}
+  label={{ value: "Epoch", position: "insideBottom", offset: -5 }}
+/>
 
           <YAxis
+            // domain={[0, 0.9]}
             label={{ value: "Loss", angle: -90, position: "insideLeft" }}
           />
 
@@ -141,13 +143,14 @@ return (
             dataKey="epoch"
             type="number"
             domain={[1, 5]}
-            ticks={[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]}
-            tickFormatter={(tick) => tick.toFixed(1)}
+            // Generates an array from 1 to 50
+            ticks={Array.from({ length: 50 }, (_, i) => i + 1)} 
+            tickFormatter={(tick) => tick.toFixed(0)}
             label={{ value: "Epoch", position: "insideBottom", offset: -5 }}
           />
 
           <YAxis
-            domain={["dataMin - 1", "dataMax + 0.5"]}
+            domain={["dataMin - 1", "dataMax "]}
             label={{ value: "Accuracy (%)", angle: -90, position: "insideLeft" }}
             />
 
@@ -186,8 +189,9 @@ return (
             dataKey="epoch"
             type="number"
             domain={[1, 5]}
-            ticks={[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]}
-            tickFormatter={(tick) => tick.toFixed(1)}
+            // Generates an array from 1 to 50
+            ticks={Array.from({ length: 50 }, (_, i) => i + 1)} 
+            tickFormatter={(tick) => tick.toFixed(0)}
             label={{ value: "Epoch", position: "insideBottom", offset: -5 }}
           />
 

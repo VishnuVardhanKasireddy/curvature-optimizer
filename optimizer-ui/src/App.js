@@ -4,6 +4,9 @@ import KPISection from "./components/KPISection";
 import OptimizerToggle from "./components/OptimizerToggle";
 import Leaderboard from "./components/Leaderboard";
 import Conclusion from "./components/Conclusion";
+import ConvergenceGauge from "./components/ConvergenceGauge";
+import RadarChartComp from "./components/RadarChartComp";
+import Card from "./components/Card";
 import { motion } from "framer-motion";
 function App() {
   const [dark, setDark] = useState(false);
@@ -141,12 +144,37 @@ function App() {
 
       {/* GRAPHS */}
       <Graphs selected={selected} dark={dark} />
+      
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
+          gap: "20px",
+          marginTop: "40px"
+        }}
+      >
+
+        
+        <Card>
+          <ConvergenceGauge />
+        </Card>
+
+        
+        <Card>
+          <RadarChartComp />
+        </Card>
+
+      </div>
       <Leaderboard dark={dark} />
       <Conclusion dark={dark} />
 
     </div>
     </motion.div>
+
+    
   );
+
+  
 }
 
 export default App;

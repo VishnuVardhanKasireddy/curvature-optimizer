@@ -2,11 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const data = [
-  { name: "Adam", accuracy: 98.90, loss: 0.0599, convergence: 2 },
-  { name: "SGD", accuracy: 98.74, loss: 0.0474, convergence: 13 },
-  { name: "CALR", accuracy: 99.17, loss: 0.0461, convergence: 2 },
-  { name: "CNAG", accuracy: 99.23, loss: 0.0439, convergence: 2 },
-  { name: "RMSProp", accuracy: 98.32, loss: 0.0917, convergence: 2 }
+  { name: "Adam", accuracy: 98.90, loss: 0.0599, convergence: 7 },
+  { name: "SGD", accuracy: 98.74, loss: 0.0474, convergence: 28 },
+  { name: "CALR", accuracy: 99.17, loss: 0.0461, convergence: 3 },
+  { name: "CNAG", accuracy: 99.23, loss: 0.0439, convergence: 3 },
+  { name: "RMSProp", accuracy: 98.32, loss: 0.0917, convergence: 15 }
 ];
 
 // Ranking

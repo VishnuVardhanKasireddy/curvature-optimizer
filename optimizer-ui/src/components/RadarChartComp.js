@@ -5,7 +5,7 @@ import {
   ResponsiveContainer, Tooltip
 } from "recharts";
 
-// ✅ MOVE OUTSIDE (fixes ESLint warning)
+
 const baseData = {
   SGD: [95, 70, 60, 65],
   Adam: [97, 80, 85, 85],
@@ -18,7 +18,7 @@ const labels = ["Accuracy", "Stability", "Convergence", "Loss"];
 
 const RadarChartComp = () => {
 
-  const [optimizer, setOptimizer] = useState("CALR");
+  const [optimizer, setOptimizer] = useState("CNAG");
   const [animatedData, setAnimatedData] = useState([]);
 
   // 🎬 Animate values

@@ -8,15 +8,15 @@ import {
 
 const ConvergenceGauge = () => {
 
-  const [optimizer, setOptimizer] = useState("CALR");
+  const [optimizer, setOptimizer] = useState("CNAG");
   const [animatedSpeed, setAnimatedSpeed] = useState(0);
 
   const epochs = {
-    SGD: 9,
-    RMSProp: 6,
-    Adam: 4,
-    CALR: 2,
-    CNAG: 2
+    SGD: 28,
+    RMSProp: 15,
+    Adam: 7,
+    CALR: 3,
+    CNAG: 3
   };
 
   const maxEpoch = Math.max(...Object.values(epochs));

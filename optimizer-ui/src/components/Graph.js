@@ -7,11 +7,11 @@ import { ResponsiveContainer } from "recharts";
 import Card from "./Card";
 
 const files = {
-  Adam: "/data/adam.csv",
-  CALR: "/data/calr.csv",
-  CNAG: "/data/cnag.csv",
-  SGD: "/data/sgd.csv",
-  RMSProp: "/data/rmsprop.csv"
+  Adam: "data/adam.csv",
+  CALR: "data/calr.csv",
+  CNAG: "data/cnag.csv",
+  SGD: "data/sgd.csv",
+  RMSProp: "data/rmsprop.csv"
 };
 
 // 🎨 Colors
@@ -90,14 +90,14 @@ return (
     <Card title=" Loss vs Epoch">
       <div style={{ width: "100%", height: 420 }}>
         <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={groupedData[selected[0]]}>
+        <LineChart data={groupedData[selected[0]]} margin={{ top: 5, right: 30, left: 30, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#94a3b8" />
 
           <XAxis
             dataKey="epoch"
             type="number"
-            domain={[1, 5]}
-            // Generates an array from 1 to 50
+            domain={['dataMin', 'dataMax']}
+            
             ticks={Array.from({ length:11 }, (_, i) => i * 5)} 
             tickFormatter={(tick) => tick.toFixed(0)}
             label={{ value: "Epoch", position: "insideBottom", offset: -5 }}
@@ -136,21 +136,20 @@ return (
     <Card title=" Accuracy vs Epoch">
       <div style={{ width: "100%", height: 420 }}>
         <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={groupedData[selected[0]]}>
+        <LineChart data={groupedData[selected[0]]} margin={{ top: 5, right: 30, left: 30, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#94a3b8" />
 
           <XAxis
             dataKey="epoch"
             type="number"
-            domain={[1, 5]}
-            // Generates an array from 1 to 50
+            domain={['dataMin', 'dataMax']}
             ticks={Array.from({ length: 11 }, (_, i) => i * 5)}
             tickFormatter={(tick) => tick.toFixed(0)}
             label={{ value: "Epoch", position: "insideBottom", offset: -5 }}
           />
 
           <YAxis
-            domain={["dataMin - 1", "dataMax "]}
+            domain={[50,100]}
             label={{ value: "Accuracy (%)", angle: -90, position: "insideLeft" }}
             />
 
@@ -182,14 +181,14 @@ return (
     <Card title=" Gradient Norm Stability">
       <div style={{ width: "100%", height: 420 }}>
         <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={groupedData[selected[0]]}>
+        <LineChart data={groupedData[selected[0]]} margin={{ top: 5, right: 30, left: 30, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#94a3b8" />
 
           <XAxis
             dataKey="epoch"
             type="number"
-            domain={[1, 5]}
-            // Generates an array from 1 to 50
+            domain={['dataMin', 'dataMax']}
+            
             ticks={Array.from({ length: 11 }, (_, i) => i * 5)} 
             tickFormatter={(tick) => tick.toFixed(0)}
             label={{ value: "Epoch", position: "insideBottom", offset: -5 }}
